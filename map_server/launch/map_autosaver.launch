@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+
+	<!-- LAUNCH SLAM NODE (IRIS LAMA, MODALITA' LOCALIZAZZIONE) -->
+	<node name="map_autosaver" pkg="map_server" type="map_autosaver" args="">
+		<param name="map_save_period"    value="30.0" />
+		<param name="map_filepath"    value="~/maps/map_autosave" />
+	</node>
+	<!-- For saving the map, at the end launch from a terminal: rosrun map_server map_saver -f ~/maps/mymap -->
+
+</launch> 

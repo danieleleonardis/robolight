@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+	
+	<arg name="local_joy"/>
+	<arg name="use_keyboard"/>
+	<arg name="scale_lin_vel"/>
+	<arg name="scale_ang_vel"/>
+	
+	<group if="$(arg local_joy)">
+		<node name="joy_input" pkg="joy" type="joy_node" args=''>
+			<param name="autorepeat_rate" value="100.0" />
+		</node>
+	</group>
+
+	<node name="joy_to_twist" pkg="joystick_to_twist" type="joy_to_twist.py" args=''>
+		<param name="scale_lin_vel" 	value="$(arg scale_lin_vel)"/>
+		<param name="scale_ang_vel" 	value="$(arg scale_ang_vel)"/>
+		<param name="local_joy"		value="$(arg local_joy)"/>
+		<param name="use_keyboard"		value="$(arg use_keyboard)"/>
+	</node>
+
+</launch> 

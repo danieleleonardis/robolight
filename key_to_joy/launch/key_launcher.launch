@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+
+	<node name="key_to_joy" pkg="key_to_joy" type="key_to_joy.py" args=''/>
+
+</launch> 

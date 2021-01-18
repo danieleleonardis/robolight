@@ -1,0 +1,29 @@
+
+
+Per futura compatibilità, è opportuno compilare con catkin build (no catkin make)
+
+
+
+Per usare catkin build invece di catkin_make:
+
+installare catkin tools (badare al trattino finale nel comando)
+
+$ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list'
+$ wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+$ sudo apt-get update
+$ sudo apt-get install python-catkin-tools
+
+
+ripulire il workspace attuale da catkin_make (usare ctrl-h per visualizzare files nascosti) o creare una cartella nuova (es catkin_ws)
+creare la sottocartella catkin_ws/src
+aprire terminale in catkin_ws
+
+lanciare catkin init
+
+in ~/.bashrc aggiungere il path del nuovo workspace aggiungendo questa riga:
+source ~/catkin_ws_robolight/devel/setup.bash
+(easy way per modificare .bashrc: premere ctrl-h nella finestra home e lo si visualizza con l'icona di un normale file di testo)
+
+lanciare source ~/.bashrc
+
+

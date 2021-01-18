@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+
+	<node name="lidar_supervisor" pkg="lidar_light"	type="lidar_supervisor"	args="">
+		<param name="frontal_dist_thr" value="0.15"/>
+		<param name="frontal_dist_thr_2" value="0.3"/>
+		<param name="frontal_width" value="0.25"/>
+		<param name="frontal_width_2" value="0.3"/>
+
+		<param name="scan_topic" value="/scan_filter"/>
+	</node>
+
+</launch>

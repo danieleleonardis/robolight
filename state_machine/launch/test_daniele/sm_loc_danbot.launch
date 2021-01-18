@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+
+	<!-- JOYSTICK PARAMS -->
+	<arg name="use_local_joy"           default="0"/>
+	<arg name="use_keyboard"      		default="1"/>
+
+	<!-- VELOCITY AND ACCELERATION LIMITS -->
+	<arg name="max_lin_vel"      		default="0.2"/>
+	<arg name="min_lin_vel"      		default="-0.2"/>
+	<arg name="max_ang_vel"      		default="0.5"/>
+	<arg name="max_lin_acc"      		default="0.03"/>
+	<arg name="max_ang_acc"      		default="0.8"/>
+
+	<!-- MAP FILE NAME -->
+	<arg name="map_file"      		default="/home/pluto/maps/map_autosave.yaml"/>
+
+
+
+	<!-- LAUNCH JOYSTICK TO TWIST NODE -->
+	<include file="$(find joystick_to_twist)/launch/joy_launcher.launch">
+		<arg name="local_joy" value="$(arg use_local_joy)"/>
+		<arg name="use_keyboard" value="$(arg use_keyboard)"/>
+		<arg name="scale_lin_vel" value="$(arg max_lin_vel)"/>
+		<arg name="scale_ang_vel" value="$(arg max_ang_vel)"/>
+	</include>
+
+
+	<!-- LAUNCH STATE MACHINE NODE -->
+	<node name="state_machine" 	pkg="state_machine" 	type="main_sm.py" 		args='' output="screen">
+		<param name="vel_reduction_coeff" value="0.2"/>
+		<param name="local_joy"		  	  value="$(arg use_local_joy)" />
+		<param name="use_keyboard"		  value="$(arg use_keyboard)" />
+		<param name="max_lin_vel" value="$(arg max_lin_vel)"/>
+		<param name="min_lin_vel" value="$(arg min_lin_vel)"/>
+		<param name="max_ang_vel" value="$(arg max_ang_vel)"/>
+		<param name="max_lin_acc" value="$(arg max_lin_acc)"/>
+		<param name="max_ang_acc" value="$(arg max_ang_acc)"/>
+	</node>
+
+	<!-- LAUNCH LIDAR SUPERVISOR FOR OBSTACLE DETECTION -->
+	<node name="lidar_supervisor" pkg="lidar_light"	type="lidar_supervisor"	args="">
+		<param name="frontal_dist_thr" value="0.15"/>
+		<param name="frontal_dist_thr_2" value="0.3"/>
+		<param name="frontal_width" value="0.25"/>
+		<param name="lidar_angle_offset" value="-3.14159"/> <!-- offset -PI per danbot, 0.0 per robocovid light -->
+		<param name="scan_topic" value="/scan_filter"/> <!-- usa scanfilter su danbot per testare visuali ridotte del lidar -->
+	</node>
+
+	<!-- LAUNCH NAVIGATION NODE (directly goes to target waypoint, no trajectory planning) -->
+	<node name="move_to_target" pkg="navigation_light" type="move_to_target" args="">
+		<param name="nav_ang_speed" value="0.6"/> <!-- velocità rotazione verso target -->
+		<param name="nav_lin_speed" value="0.06"/> <!-- velocità avanzamento verso target-->
+		<param name="nav_rot_thr" value="0.2"/> <!-- soglia errore angolo per rotazione sul posto prima di avanzare-->
+		<param name="goal_pos_thr" value="0.05"/> <!-- soglia errore di posizione raggiungimento target -->
+		<param name="goal_pos_hyst" value="0.2"/> <!-- isteresi errore di posizione per mantenimento posizione su target-->
+	</node>
+
+	<!-- LAUNCH MAP SERVER) -->
+	<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)"/>
+
+	<!-- LAUNCH SLAM NODE (IRIS LAMA, MODALITA' LOCALIZAZZIONE) -->
+	<node pkg="iris_lama_ros" type="loc2d_ros" name="loc2d_ros_1"/>
+        <param name="scan_topic"    value="/scan_filter" /> <!-- usa scanfilter su danbot per testare visuali ridotte del lidar-->
+	<param name="global_frame_id"    value="map" />
+	<param name="odom_frame_id"    value="odom" />
+	<param name="base_frame_id"    value="base_link" />
+	<param name="initial_pos_x"    value="0" />
+	<param name="initial_pos_y"    value="0" />
+	<param name="d_thresh"    value="0.01" />
+	<param name="a_thresh"    value="0.2" />
+	<param name="l2_max"    value="0.5" />
+	<param name="strategy"    value="gn" />
+	<param name="patch_size"    value="32" />
+
+	<!-- LAUNCH WAYPOINTS FOLLOWER NODE 
+	<node name="replay_waypoints" type="replay_waypoints.py" pkg="navigation_light"  args="">
+		<param name="waypoint_filepath"    value="/home/pluto/maps/waypoints_record.csv" />
+		<param name="map_frame_id"    value="map" />
+		<param name="base_frame_id"    value="base_link" />
+		<param name="waypoint_reached_thr"    value="0.1" />
+	</node> -->
+
+</launch> 

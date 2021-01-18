@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>robolight</name>
+  <version>0.0.0</version>
+  <description>NGR Robolight metapackage</description>
+
+  <maintainer email="percrolab@todo.todo">percrolab</maintainer>
+
+
+  <license>TODO</license>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!--<build_depend>rospy</build_depend>-->
+  <!--<build_export_depend>rospy</build_export_depend>-->
+
+  <exec_depend>rospy</exec_depend>
+
+  <exec_depend>state_machine</exec_depend>
+  <exec_depend>lidar_light</exec_depend>
+  <exec_depend>joystick_to_twist</exec_depend>
+  <exec_depend>key_to_joy</exec_depend>
+  <exec_depend>udp_controller</exec_depend>
+  <exec_depend>ydlidar_ros</exec_depend>
+  <exec_depend>map_server</exec_depend> 
+  <exec_depend>navigation_light</exec_depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+ 	<metapackage/>
+  </export>
+</package>

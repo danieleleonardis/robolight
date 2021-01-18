@@ -1,0 +1,75 @@
+CREATE A NEW BRANCH AND WORK ON IT
+	
+1) Open terminal in your local repository.
+	
+2) Switch to master (or main) branch (or the branch from which you want to fork):
+
+		$ git checkout main
+	
+3) Update your local repository:
+	
+		$ git pull origin
+		
+4) Create a new branch on your local machine and switch to it:
+			
+		$ git checkout -b [name_of_new_branch]
+			
+5) Push the new branch to your remote repo:
+
+		$ git push origin [name_of_new_branch]
+		
+6) Make changes to your files in local.
+
+7) Push the changes to the remote:
+
+		$ git add .
+		$ git commit -m "a message that describes the commit"
+		$ git push --set-upstream origin [name_of_new_branch]
+	
+7a) if it is not the first time you push changes to remote you can just write:
+		
+		$ git push origin
+
+		
+MERGE THE CHANGES BRANCH WITH THE MASTER/MAIN BRANCH
+
+1) update the main branch on local:
+
+		$ git checkout main
+		$ git fetch origin
+		
+2) switch to the changes branch and verify compatibility:
+
+		$ git checkout [name_of_new_branch]
+		
+3) if branch is not updated on local
+
+		$ git pull origin
+
+4) verify compatibility with main branch
+		
+		$ git merge main
+		
+5) switch to the main branch and merge changes from changes branch
+
+		$ git checkout main
+		$ git merge --no-ff [name_of_new_branch]
+		
+6) push the merged main branch to remote repo
+
+		$ git push origin main
+		
+Optional: Remove the branch from local and from remote
+
+7) remove the branch from local:
+
+		$ git branch -d [name_of_new_branch]
+
+7a) eventually force the deletion
+
+		$ git branch -D [name_of_new_branch]
+		
+8) remove the branch from github
+
+		$ git push origin :[name_of_new_branch]
+		

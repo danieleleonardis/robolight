@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+	
+	<!-- STATIC MAP lanciare solo per visualizzare lidar in rviz durante teleoperazione senza localizzazione -->
+	<node name="map_to_base_link"   pkg="tf2_ros"       type="static_transform_publisher"  	args="1.0 0.0 0.0 0 0 0 map base_link" />
+	
+
+</launch> 

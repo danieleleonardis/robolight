@@ -1,0 +1,4 @@
+Package originale:
+map_server https://github.com/ros-planning/navigation/tree/melodic-devel/map_server
+
+aggiunto nodo map_autosave per salvare periodicamente la mappa in automatico

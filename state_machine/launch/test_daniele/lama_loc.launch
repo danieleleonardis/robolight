@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+
+<node pkg="map_server" type="map_server" name="map_server_1" arg="~/maps/mappa_garage.yaml">
+
+<node pkg="iris_lama_ros" type="loc2d_ros" name="loc2d_ros_1"/>
+        <param name="scan_topic"    value="/scan_filter" />
+	<param name="global_frame_id"    value="map" />
+	<param name="odom_frame_id"    value="odom" />
+	<param name="base_frame_id"    value="base_link" />
+	<param name="initial_pos_x"    value="0" />
+	<param name="initial_pos_y"    value="0" />
+	<param name="d_thresh"    value="0.01" />
+	<param name="a_thresh"    value="0.2" />
+	<param name="l2_max"    value="0.5" />
+	<param name="strategy"    value="gn" />
+	<param name="patch_size"    value="32" />
+</node>
+
+
+</launch>
