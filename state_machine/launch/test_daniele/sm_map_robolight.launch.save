@@ -49,8 +49,8 @@
 
 	<!-- LAUNCH LIDAR SUPERVISOR FOR OBSTACLE DETECTION -->
 	<node name="lidar_supervisor" pkg="lidar_light"	type="lidar_supervisor"	args="">
-		<param name="frontal_dist_thr" value="0.15"/>
-		<param name="frontal_dist_thr_2" value="0.3"/>
+		<param name="frontal_dist_thr" value="0.3"/>
+		<param name="frontal_dist_thr_2" value="0.6"/>
 		<param name="frontal_width" value="0.6"/>
 		<param name="lidar_angle_offset" value="0.0"/> <!-- offset -PI per danbot, 0.0 per robocovid light -->
 		<param name="scan_topic" value="/scan"/> <!-- default /scan usa /scan_filter su danbot per testare visuali ridotte del lidar -->
@@ -68,11 +68,11 @@
 		<param name="a_thresh"    value="0.2" />
 		<param name="l2_max"    value="0.5" />
 		<param name="resolution"    value="0.05" />
-		<param name="strategy"    value="gn" />
+		<param name="strategy"    value=gn" />
 		<param name="patch_size"    value="32" />
 		<param name="max_iterations"    value="100" />
 		<param name="~use_compression"    value="false" />
-		<param name="~mrange"    value="6" />
+		<param name="~mrange"    value="3" />
 		<param name="~map_publish_period"    value="5" />
 	</node>
 
